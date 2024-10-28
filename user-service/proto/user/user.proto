@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package user;
+
+// Option to specify the Go package name and import path
+option go_package = "user-service/proto/user;userpb";
+
+// Define the UserService service
+service UserService {
+    rpc GetUser (GetUserRequest) returns (GetUserResponse) {}
+    rpc GetAllUser (GetAllUserRequest) returns (GetAllUserResponse) {}
+}
+
+// Message for requesting a single user
+message GetUserRequest {
+    string email = 1;
+}
+
+// Message for responding with user data
+message GetUserResponse {
+    string id = 1;
+    string name = 2;
+    string address = 3;
+    string email = 4;
+}
+
+// Message for requesting all users
+message GetAllUserRequest {}
+
+// Message for responding with multiple users
+message GetAllUserResponse {
+    repeated User users = 1;  // Corrected to 'users' to represent multiple users
+}
+
+// Message representing a User
+message User {
+    string id = 1;
+    string name = 2;
+    string address = 3;
+    string email = 4;
+}
