@@ -11,7 +11,7 @@ import (
 
 func (h *TaskHandler) CreateTask(ctx *gin.Context) {
 	// Get the task from the request body
-	timeoutCtx, cancel := context.WithTimeout(ctx.request.context, 5*time.Second)
+	timeoutCtx, cancel := context.WithTimeout(ctx.Request.Context(), 5*time.Second)
 	defer cancel()
 	var task domain.TaskCreateRequest
 	err := ctx.ShouldBindJSON(&task)

@@ -22,7 +22,7 @@ func NewTaskHandler(svc app.TaskServiceGetter) *TaskHandler {
 	}
 }
 
-func (h *TaskHandler) Server() {
+func (h *TaskHandler) Server() error {
 	var err error
 	if err = godotenv.Load(); err != nil {
 		log.Println("No .env file is exist there in our code!")
@@ -32,10 +32,11 @@ func (h *TaskHandler) Server() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	port := os.Getenv("Port")
+	port := os.Getenv("APP_PORT")
 	if port == "" {
 		port = "8081"
 	}
-	listenaddr := fmt.Sprintf("%s:%s", "127.0.0", port)
+	listenaddr := fmt.Sprintf("%s:%s", "127.0.0.1", port)
 	h.router.Run(listenaddr)
+	return err
 }
