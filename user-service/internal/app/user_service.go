@@ -95,7 +95,7 @@ func (r *UserService) GetUserByEmail(ctx context.Context, email string) (*model.
 
 	// If user is not found, return a nil user and error
 	if user == nil {
-		return nil, fmt.Errorf("user not found")
+		return nil, fmt.Errorf("%s not found", email)
 	}
 
 	// Return the full response with the password included

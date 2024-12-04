@@ -3,8 +3,8 @@ package domain
 import ()
 
 type TaskCreateRequest struct {
-	Name      string   `json:"name"`
-	Assign_To []string `json:"assign_to"`
+	Name  string   `json:"name"`
+	Email []string `json:"emails"`
 }
 
 type TaskCreate struct {
@@ -13,7 +13,12 @@ type TaskCreate struct {
 	Assign_To []string `json:"assign_to"`
 }
 type TaskCreateResponse struct {
-	TaskID    string   `json:"task_id"`
-	Name      string   `json:"name"`
-	Assign_To []string `json:"assign_to"`
+	TaskID    string        `json:"task_id"`
+	Name      string        `json:"name"`
+	Assign_To []UserDetails `json:"assign_to"`
+}
+
+type UserDetails struct {
+	ID   string `son:"id"`
+	Name string `json:"name"`
 }

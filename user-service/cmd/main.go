@@ -1,27 +1,3 @@
-// package main
-
-// import (
-// 	"log"
-// 	userhttp "user-service/internal/adapter/http"
-// 	"user-service/internal/app"
-// 	"user-service/internal/config"
-// 	"user-service/internal/initializers"
-// 	"user-service/internal/repository"
-// )
-
-// func main() {
-// 	configuration, error := config.LoadConfig()
-// 	if error != nil {
-// 		log.Fatal(error)
-// 	}
-// 	log.Println(configuration)
-// 	db := initializers.GetDB()
-// 	repoObj := repository.NewUserRepository(db)
-// 	app_obj := app.NewUserService(repoObj)
-// 	handler_obj := userhttp.NewUserHandler(configuration, app_obj)
-// 	handler_obj.Server()
-
-// }
 package main
 
 import (

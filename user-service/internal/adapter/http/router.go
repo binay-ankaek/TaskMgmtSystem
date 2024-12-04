@@ -20,7 +20,7 @@ func (h *UserHandler) SetupRoute() error {
 	protected.Use(app.AuthMiddleware()) // Apply middleware from `app`
 	{
 		protected.GET("/profile", h.GetProfile) // Get authenticated user's profile
-		protected.PUT("/update-profile",h.UpdateProfile)
+		protected.PUT("/update-profile", h.UpdateProfile)
 	}
 	return nil
 }

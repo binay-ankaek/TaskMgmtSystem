@@ -170,7 +170,7 @@ func (h *UserHandler) UpdateProfile(ctx *gin.Context) {
 	if err := ctx.ShouldBindJSON(&updateuser); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Json"})
 	}
-	if updateuser.Email == "" || updateuser.Name == "" || updateuser.Address == "" {
+	if updateuser.Email == "" && updateuser.Name == "" && updateuser.Address == "" {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid data"})
 		return
 	}

@@ -20,8 +20,17 @@ func main() {
 	db := initializers.GetDB()
 	//get repo
 	repo := repository.NewTaskRepository(db)
+	// Set up a connection to the server
+	con, err := grpc.NewClient("localhost:50051", grpc.WithTransportCredentials(insecure.NewCredentials())) // Change the address as needed
+	if err != nil {
+		log.Fatalf("did not connect: %v", err)
+	}
+	defer con.Close()
+
+	// Create a new client
+	clientcon := pb.NewUserServiceClient(con)
 	//get service
-	service := app.NewTaskService(repo)
+	service := app.NewTaskService(repo, clientcon)
 	//get handler
 	handler := http.NewTaskHandler(service)
 	var wg sync.WaitGroup
