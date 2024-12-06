@@ -171,12 +171,15 @@ func (h *UserHandler) UpdateProfile(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Json"})
 	}
 	if updateuser.Email == "" && updateuser.Name == "" && updateuser.Address == "" {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid data"})
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "you are not allowed to change email,name and address at the same time"})
+		return
+	}
+	if updateuser.Email != "" {
+		ctx.JSON(http.StatusConflict, gin.H{"error": "email never be changed."})
 		return
 	}
 	//update the data
 	user.Name = updateuser.Name
-	user.Email = updateuser.Email
 	user.Address = updateuser.Address
 
 	updateduser, err := h.hand.User().UpdateUser(timeoutCtx, user)

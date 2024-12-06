@@ -1,0 +1,22 @@
+syntax "proto3";
+
+package task
+import "github.com/golang/protobuf/proto"
+
+option go_package ="task-service/proto/task;taskpb";
+
+//Define TaskService service
+service TaskService{
+    rpc GetTask(GetTaskRequest) returns (GetTaskResponse) {}
+}
+
+//Message for requesting  
+message GetTaskRequest{
+    string email=1;
+}
+
+//Message for responding
+message GetTaskResponse{
+  string id =1;
+  string name =2;
+}

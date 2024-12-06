@@ -19,6 +19,6 @@ type TaskCreateResponse struct {
 }
 
 type UserDetails struct {
-	ID   string `son:"id"`
-	Name string `json:"name"`
+	ID    string `son:"id"`
+	Email string `json:"email"`
 }

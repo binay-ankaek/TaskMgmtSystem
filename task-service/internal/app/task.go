@@ -75,8 +75,8 @@ func (t *TaskService) CreateTask(ctx context.Context, req *domain.TaskCreateRequ
 			return nil, err
 		}
 		assign_to = append(assign_to, domain.UserDetails{
-			ID:   user.Id,
-			Name: user.Name,
+			ID:    user.Id,
+			Email: user.Email,
 		})
 	}
 	if len(assign_to) == 0 {
