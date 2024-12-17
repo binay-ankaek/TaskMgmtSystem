@@ -9,10 +9,12 @@ import (
 	"user-service/internal/ports"
 	"user-service/internal/repository"
 	"user-service/internal/utils"
+	pbTask "user-service/proto/task"
 )
 
 type UserService struct {
-	repo repository.UserGetter
+	repo         repository.UserGetter
+	pbTaskClient pbTask.TaskServiceClient
 }
 
 type UserServiceGetter interface {
@@ -23,9 +25,10 @@ func (r *UserService) User() ports.UserService {
 	return r
 }
 
-func NewUserService(repo repository.UserGetter) *UserService {
+func NewUserService(repo repository.UserGetter, pbTaskClient pbTask.TaskServiceClient) *UserService {
 	return &UserService{
-		repo: repo,
+		repo:         repo,
+		pbTaskClient: pbTaskClient,
 	}
 }
 
@@ -153,5 +156,30 @@ func (r *UserService) UpdateUser(ctx context.Context, user *model.CreateResponse
 		Address: updateduser.Address,
 	}
 	return updatedUserResponse, nil
+
+}
+
+func (r *UserService) GetTask(ctx context.Context, email string) (*model.TaskResponses, error) {
+	//get email user
+	if email == "" {
+		return nil, errors.New("email is required")
+	}
+	//get task from grpc
+	task, err := r.pbTaskClient.GetTask(ctx, &pbTask.GetTaskRequest{
+		Email: email,
+	})
+	if err != nil {
+		return nil, err
+	}
+	var TaskResponse []model.TaskResponse
+	for _, t := range task.Tasks {
+		TaskResponse = append(TaskResponse, model.TaskResponse{
+			TaskID:   t.Id,
+			TaskName: t.Name,
+		})
+	}
+	return &model.TaskResponses{
+		TaskResponses: TaskResponse,
+	}, nil
 
 }

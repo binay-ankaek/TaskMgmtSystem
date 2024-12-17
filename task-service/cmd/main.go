@@ -2,17 +2,17 @@ package main
 
 import (
 	"context"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 	"log"
 	"sync"
 	"task-service/internal/adapter/http"
 	"task-service/internal/app"
+	grpcserver "task-service/internal/grpc"
 	"task-service/internal/initializers"
 	"task-service/internal/repository"
 	pb "task-service/proto/user" // Import your generated proto files here
 	"time"
-
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
 )
 
 func main() {
@@ -35,7 +35,7 @@ func main() {
 	handler := http.NewTaskHandler(service)
 	var wg sync.WaitGroup
 	// Start the server
-	wg.Add(2)
+	wg.Add(3)
 	go func() {
 		defer wg.Done()
 		log.Println("starting the http server....")
@@ -49,6 +49,14 @@ func main() {
 	go func() {
 		defer wg.Done() // Mark this goroutine as done when it completes
 		RunGrpcClient()
+	}()
+	go func() {
+		defer wg.Done()
+		// Start the gRPC server
+		err := grpcserver.RunGRPCServer("50052", service)
+		if err != nil {
+			log.Println(err)
+		}
 	}()
 
 	// Wait for both tasks to complete

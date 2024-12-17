@@ -19,6 +19,14 @@ type TaskCreateResponse struct {
 }
 
 type UserDetails struct {
-	ID    string `son:"id"`
+	ID    string `json:"id"`
 	Email string `json:"email"`
+}
+type GetTaskRequest struct {
+	Email string `json:"email"`
+}
+
+type GetTaskResponse struct {
+	TaskID string `json:"task_id"`
+	Name   string `json:"name"`
 }

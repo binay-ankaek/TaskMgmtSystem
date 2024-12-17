@@ -21,6 +21,7 @@ func (h *UserHandler) SetupRoute() error {
 	{
 		protected.GET("/profile", h.GetProfile) // Get authenticated user's profile
 		protected.PUT("/update-profile", h.UpdateProfile)
+		protected.GET("get-my-task", h.GetTask)
 	}
 	return nil
 }

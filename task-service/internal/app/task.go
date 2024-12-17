@@ -101,3 +101,18 @@ func (t *TaskService) CreateTask(ctx context.Context, req *domain.TaskCreateRequ
 	}
 	return response, nil
 }
+
+func (t *TaskService) GetTask(ctx context.Context, req *domain.GetTaskRequest) ([]domain.GetTaskResponse, error) {
+	//get task
+	if req.Email == "" {
+		return nil, errors.New("email is required")
+	}
+	// tasks, err := t.repo.Task().GetTask(ctx, &domain.GetTaskRequest{
+	// 	Email: req.Email,
+	// })
+	tasks, err := t.repo.Task().GetTask(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+	return tasks, nil
+}

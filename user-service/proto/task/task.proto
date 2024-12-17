@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package task;
 
-option go_package ="task-service/proto/task;taskpb";
+option go_package ="user-service/proto/task;taskpb";
 
 //Define TaskService service
 service TaskService{

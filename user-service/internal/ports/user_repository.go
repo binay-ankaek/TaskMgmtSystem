@@ -29,4 +29,6 @@ type UserService interface {
 	GetUserByEmail(ctx context.Context, email string) (*model.PasswordResponse, error)
 	//update user
 	UpdateUser(ctx context.Context, user *model.CreateResponse) (*model.UpdateUser, error)
+	//getTasks
+	GetTask(ctx context.Context, email string) (*model.TaskResponses, error)
 }

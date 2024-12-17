@@ -2,6 +2,7 @@ package http
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"time"
 	"user-service/internal/domain/model"
@@ -188,5 +189,37 @@ func (h *UserHandler) UpdateProfile(ctx *gin.Context) {
 		return
 	}
 	ctx.JSON(http.StatusOK, gin.H{"message": "Profile updated successfully", "user": updateduser})
+
+}
+
+func (h *UserHandler) GetTask(ctx *gin.Context) {
+	//set timout
+	timeoutCtx, cancel := context.WithTimeout(ctx.Request.Context(), 5*time.Second)
+	defer cancel()
+	// Perform type assertion to ensure it's the correct type
+	id, exist := ctx.Get("userID")
+	fmt.Println("this is id :", id)
+	if !exist {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "User Id not found"})
+		return
+	}
+	fmt.Println("this is another part id:", id)
+	// Perform type assertion to ensure it's the correct type
+	userIDString, ok := id.(string)
+	if !ok {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID type"})
+		return
+	}
+	user, err := h.hand.User().GetUserById(timeoutCtx, userIDString)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get user data"})
+		return
+	}
+	task, err := h.hand.User().GetTask(timeoutCtx, user.Email)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get task data"})
+		return
+	}
+	ctx.JSON(http.StatusOK, gin.H{"message": "Task for you", "task": task})
 
 }
