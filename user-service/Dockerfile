@@ -15,7 +15,7 @@ RUN go mod download
 COPY . .
 
 # Build the binary from main.go
-RUN go build -o app main.go
+RUN go build -o app .
 
 # ------------------------
 # Stage 2: Production
