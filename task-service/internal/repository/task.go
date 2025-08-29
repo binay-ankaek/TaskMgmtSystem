@@ -51,7 +51,7 @@ func (t *TaskRepository) GetTask(ctx context.Context, req *domain.GetTaskRequest
 	err := t.db.QueryRowContext(ctx, "SELECT id FROM users WHERE email = $1", req.Email).Scan(&userID)
 	if err != nil {
 		if err == sql.ErrNoRows {
-			return nil, fmt.Errorf("no user found with email: %s", req.Email)
+			return nil, fmt.Errorf("no user found with email here: %s", req.Email)
 		}
 		return nil, fmt.Errorf("error querying user ID for email: %w", err)
 	}
