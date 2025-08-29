@@ -34,12 +34,12 @@ jobs:
 
       # 5. Build and push task-service
       - name: Build Docker image task-service
-        run: docker build -t YOUR_DOCKER_USERNAME/task-service:latest -f task-service/Dockerfile task-service
+        run: docker build -t binayrijal/task-service:latest -f task-service/Dockerfile task-service
       - name: Push task-service
-        run: docker push YOUR_DOCKER_USERNAME/task-service:latest
+        run: docker push binayrijal/task-service:latest
 
       # 6. Build and push user-service
       - name: Build Docker image user-service
-        run: docker build -t YOUR_DOCKER_USERNAME/user-service:latest -f user-service/Dockerfile user-service
+        run: docker build -t binayrijal/user-service:latest -f user-service/Dockerfile user-service
       - name: Push user-service
-        run: docker push YOUR_DOCKER_USERNAME/user-service:latest
+        run: docker push binayrijal/user-service:latest
