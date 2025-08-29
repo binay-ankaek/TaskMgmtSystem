@@ -14,8 +14,8 @@ RUN go mod download
 # Copy the rest of the source code
 COPY . .
 
-# Build the binary from main.go
-RUN go build -o app .
+# Build the binary from cmd/main.go
+RUN go build -o app ./cmd
 
 # ------------------------
 # Stage 2: Production
@@ -26,8 +26,5 @@ WORKDIR /root/
 # Copy binary from build stage
 COPY --from=build /app/app .
 
-# Expose port (change if needed)
 EXPOSE 8080
-
-# Run the app
 CMD ["./app"]
