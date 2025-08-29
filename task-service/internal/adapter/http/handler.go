@@ -34,7 +34,7 @@ func (h *TaskHandler) Server() error {
 	}
 	port := os.Getenv("APP_PORT")
 	if port == "" {
-		port = "8081"
+		port = "8080"
 	}
 	listenaddr := fmt.Sprintf("%s:%s", "127.0.0.1", port)
 	h.router.Run(listenaddr)
