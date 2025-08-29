@@ -9,9 +9,11 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
       # 1. Checkout code
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       # 2. Set up Go 1.22.5
       - name: Set up Go
@@ -28,13 +30,12 @@ jobs:
 
       # 4. Build and push task-service
       - name: Build Docker image task-service
-        run: docker build -t binayrijal/task-service:latest ./task-service
+        run: docker build -t binayrijal/task-service:latest ./task-service -f ./task-service/Dockerfile
       - name: Push Docker image task-service
         run: docker push binayrijal/task-service:latest
 
       # 5. Build and push user-service
       - name: Build Docker image user-service
-        run: docker build -t binayrijal/user-service:latest ./user-service
+        run: docker build -t binayrijal/user-service:latest ./user-service -f ./user-service/Dockerfile
       - name: Push Docker image user-service
         run: docker push binayrijal/user-service:latest
-
