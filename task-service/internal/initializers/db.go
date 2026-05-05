@@ -19,14 +19,24 @@ func init() {
 
 	}
 
-	dsn := fmt.Sprintf("host=%s user=%s dbname=%s password=%s port=%s sslmode=%s",
+	// dsn := fmt.Sprintf("host=%s user=%s dbname=%s password=%s port=%s sslmode=%s",
 
-		os.Getenv("localhost"),
-		os.Getenv("user"),
-		os.Getenv("dbname"),
-		os.Getenv("password"),
-		os.Getenv("port"),
-		os.Getenv("sslmode"),
+	// 	os.Getenv("localhost"),
+	// 	os.Getenv("user"),
+	// 	os.Getenv("dbname"),
+	// 	os.Getenv("password"),
+	// 	os.Getenv("port"),
+	// 	os.Getenv("sslmode"),
+	// )
+
+	dsn := fmt.Sprintf(
+		"host=%s user=%s password=%s dbname=%s port=%s sslmode=%s",
+		os.Getenv("DB_HOST"),
+		os.Getenv("DB_USER"),
+		os.Getenv("DB_PASSWORD"),
+		os.Getenv("DB_NAME"),
+		os.Getenv("DB_PORT"),
+		os.Getenv("DB_SSLMODE"),
 	)
 
 	db, err = sql.Open("postgres", dsn)
