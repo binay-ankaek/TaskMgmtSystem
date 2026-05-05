@@ -13,3 +13,7 @@ spec:
       port: {{ .Values.taskService.service.port }}
       targetPort: http
       protocol: TCP
+    - name: grpc
+      port: {{ .Values.taskService.grpcPort }}
+      targetPort: {{ .Values.taskService.grpcPort }}
+      protocol: TCP

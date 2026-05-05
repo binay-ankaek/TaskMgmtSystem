@@ -1,8 +1,6 @@
 package main
 
 import (
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
 	"log"
 	"sync"
 	userhttp "user-service/internal/adapter/http" // Import the HTTP handler package
@@ -12,6 +10,9 @@ import (
 	"user-service/internal/initializers"
 	"user-service/internal/repository"
 	pb "user-service/proto/task" // Import your generated proto files here
+
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 func main() {
@@ -29,7 +30,7 @@ func main() {
 	userRepo := repository.NewUserRepository(db)
 
 	// Set up a connection to the server
-	con, err := grpc.NewClient("localhost:50052", grpc.WithTransportCredentials(insecure.NewCredentials())) // Change the address as needed
+	con, err := grpc.NewClient("task-service:50052", grpc.WithTransportCredentials(insecure.NewCredentials())) // Change the address as needed
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
