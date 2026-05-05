@@ -33,7 +33,7 @@ taskService:
   image:
     repository: binayrijal/task-service
     tag: "latest"
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
   containerPort: 8081
   service:
     type: ClusterIP
@@ -46,7 +46,7 @@ userService:
   image:
     repository: binayrijal/user-service
     tag: "latest"
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
   containerPort: 8080
   service:
     type: ClusterIP
