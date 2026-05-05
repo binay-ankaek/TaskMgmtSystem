@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: taskmgmt-config
+data:
+  # --- shared postgres (two naming styles) ---
+  DB_HOST: {{ .Values.postgres.host | quote }}
+  DB_PORT: {{ .Values.postgres.port | quote }}
+  DB_USER: {{ .Values.postgres.user | quote }}
+  DB_NAME: {{ .Values.postgres.dbname | quote }}
+  DB_SSLMODE: {{ .Values.postgres.sslmode | quote }}
+
+  localhost: {{ .Values.postgres.host | quote }}
+  port: {{ .Values.postgres.port | quote }}
+  user: {{ .Values.postgres.user | quote }}
+  dbname: {{ .Values.postgres.dbname | quote }}
+  sslmode: {{ .Values.postgres.sslmode | quote }}
+
+  # --- app ports ---
+  TASK_APP_PORT: {{ .Values.taskService.appPort | quote }}
+  TASK_GRPC_PORT: {{ .Values.taskService.grpcPort | quote }}
+
+  USER_APP_PORT: {{ .Values.userService.appPort | quote }}
+  USER_GRPC_PORT: {{ .Values.userService.grpcPort | quote }}

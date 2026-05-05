@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task-service
+  labels:
+    app: task-service
+spec:
+  replicas: {{ .Values.taskService.replicaCount }}
+  selector:
+    matchLabels:
+      app: task-service
+  template:
+    metadata:
+      labels:
+        app: task-service
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: task-service
+          image: "{{ .Values.taskService.image.repository }}:{{ .Values.taskService.image.tag }}"
+          imagePullPolicy: {{ .Values.taskService.image.pullPolicy }}
+
+          env:
+            - name: APP_PORT
+              value: {{ .Values.taskService.appPort | quote }}
+            - name: GRPC_PORT
+              value: {{ .Values.taskService.grpcPort | quote }}    
+          envFrom:
+            - configMapRef:
+                name: taskmgmt-config
+            - secretRef:
+                name: taskmgmt-secret
+          ports:
+            - name: http
+              containerPort: {{ .Values.taskService.containerPort }}
+              protocol: TCP

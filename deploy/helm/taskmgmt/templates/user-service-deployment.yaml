@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+  labels:
+    app: user-service
+spec:
+  replicas: {{ .Values.userService.replicaCount }}
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: user-service
+          image: "{{ .Values.userService.image.repository }}:{{ .Values.userService.image.tag }}"
+          imagePullPolicy: {{ .Values.userService.image.pullPolicy }}
+          envFrom:
+            - configMapRef:
+                name: taskmgmt-config
+            - secretRef:
+                name: taskmgmt-secret
+          ports:
+            - name: http
+              containerPort: {{ .Values.userService.containerPort }}
+              protocol: TCP
