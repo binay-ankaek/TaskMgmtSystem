@@ -21,7 +21,7 @@ func main() {
 	//get repo
 	repo := repository.NewTaskRepository(db)
 	// Set up a connection to the server
-	con, err := grpc.NewClient("localhost:50051", grpc.WithTransportCredentials(insecure.NewCredentials())) // Change the address as needed
+	con, err := grpc.NewClient("user-service:50051", grpc.WithTransportCredentials(insecure.NewCredentials())) // Change the address as needed
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
