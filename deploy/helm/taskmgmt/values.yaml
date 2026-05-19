@@ -22,8 +22,8 @@ fullnameOverride: ""
 postgres:
   host: "postgres-postgresql"   # set to your in-cluster postgres Service name
   port: "5432"
-  user: "root"
-  password: "secret"
+  user: "postgres"
+  password: "postgres"
   dbname: "taskmgmtdb"
   sslmode: "disable"
 
