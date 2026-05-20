@@ -23,7 +23,7 @@ postgres:
   host: "postgres-postgresql"   # set to your in-cluster postgres Service name
   port: "5432"
   user: "postgres"
-  password: "0tFVEIEaWB"
+  password: "postgres"
   dbname: "taskmgmt"
   sslmode: "disable"
 
