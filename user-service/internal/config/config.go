@@ -22,7 +22,7 @@ func LoadConfig() (*Config, error) {
 	// Load environment variables from .env file
 	err := godotenv.Load()
 	if err != nil && !errors.Is(err, os.ErrNotExist) {
-		log.Fatal("Error loading .env file: ", err)
+		log.Fatal("Error loading .env file: ", err) // add comment
 	}
 	return &Config{
 		DBHost:     os.Getenv("DB_HOST"),
